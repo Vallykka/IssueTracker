@@ -24,14 +24,14 @@ import java.util.Set;
 @Import({SecurityConfiguration.class})
 public class MvcConfiguration extends WebMvcConfigurerAdapter{
 
-	@Bean
-	public ServletContextTemplateResolver getTemplateResolver() {
+    @Bean
+    public ServletContextTemplateResolver getTemplateResolver() {
         ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-		resolver.setPrefix("/WEB-INF/templates/");
-		resolver.setSuffix(".html");
+        resolver.setPrefix("/WEB-INF/templates/");
+        resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
-		return resolver;
-	}
+        return resolver;
+    }
 
     @Bean
     public SpringTemplateEngine getTemplateEngine() {
@@ -57,10 +57,10 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
         return source;
     }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
 
-	
+
 }
