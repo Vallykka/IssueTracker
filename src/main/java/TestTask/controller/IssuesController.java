@@ -21,10 +21,10 @@ public class IssuesController {
         return this.issueService.findAll();
     }
 
-	@RequestMapping(value = "/")
-	public String issues() {
+    @RequestMapping(value = "/")
+    public String issues() {
         return "issues";
-	}
+    }
 
     @RequestMapping(value = "/login")
     public String login() { return "login"; }
