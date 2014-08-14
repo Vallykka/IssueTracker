@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title th:text="#{issues.title}"></title>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="resources/dist/js/bootstrap.min.js"></script>
+        <link href="resources/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="navbar navbar-static-top">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a th:href="@{/createIssue}" th:text="#{create}"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1 th:text="#{issues.title}"></h1>
+            <table class="table table-hover">
+                <tbody>
+                    <tr th:each="issue : ${getIssues}">
+                        <td><a th:href="@{/issueView(id=${issue.id})}" th:text="${issue.title}"></a></td>
+                        <td th:text="#{status.+${issue.status}}"></td>
+                        <td th:text="${#calendars.format(issue.dateTime,'dd/MM/yyyy')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

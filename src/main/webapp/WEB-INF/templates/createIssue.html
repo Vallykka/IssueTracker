@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="#{create.title}"></title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="resources/dist/js/bootstrap.min.js"></script>
+    <link href="resources/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a th:href="@{/}" th:text="#{home}"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <form class="form-horizontal" th:action="@{/createIssue}" th:object="${issue}" method="post">
+            <div class="control-group">
+                <label class="control-label" th:text="#{title}"></label>
+                <input type="text" class="form-control" th:field="*{title}" placeholder="Title" id="inputTitle" required="required" pattern=".{3,}" title="3 characters minimum"/>
+            </div>
+            <div class="control-group">
+                <label class="control-label" th:text="#{author}"></label>
+                <input type="text" class="form-control" th:field="*{author}" placeholder="Author" required="required" pattern=".{5,}" title="5 characters minimum"/>
+            </div>
+            <div class="control-group">
+                <label class="control-label" th:text="#{description}"></label>
+                <input type="text" class="form-control" th:field="*{description}" placeholder="Description" required="required" pattern=".{5,}" title="5 characters minimum"/>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-info" name="create" th:text="#{save}"></button>
+                    <button type="reset" class="btn btn-info" th:text="#{reset}"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

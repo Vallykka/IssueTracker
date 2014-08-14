@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="#{issue.title}"></title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="resources/dist/js/bootstrap.min.js"></script>
+    <link href="resources/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="navbar navbar-static-top">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a th:href="@{/}" th:text="#{home}"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1 th:text="${issue.title}"></h1>
+        <dl class="dl-horizontal">
+            <dt th:text="#{status}"></dt>
+            <dd th:text="#{status.+${issue.status}}"></dd>
+            <dt th:text="#{date}"></dt>
+            <dd th:text="${#calendars.format(issue.dateTime,'dd/MM/yyyy')}"></dd>
+            <dt th:text="#{author}"></dt>
+            <dd th:text="${issue.author}"></dd>
+            <dt th:text="#{description}"></dt>
+            <dd th:text="${issue.description}"></dd>
+        </dl>
+        <h3 th:text="#{comments.title}"></h3>
+        <div class="" th:each="comment : ${getComments}">
+            <dl class="dl-horizontal">
+                <dt th:text="#{comment.author}"></dt>
+                <dd th:text="${comment.author} +'&emsp;'+ ${#calendars.format(issue.dateTime,'dd/MM/yyyy')}"></dd>
+                <div th:if="${comment.status} != null">
+                    <dt th:text="#{comment.status}"></dt>
+                    <dd th:text="#{status.+${comment.status}}"></dd>
+                </div>
+                <dt></dt>
+                <dd th:text="${comment.text}" class="col-md-11"></dd>
+            </dl>
+        </div>
+        <div>
+            <h3 th:text="#{comment.add}"></h3>
+        </div>
+        <form class="form-horizontal" th:action="@{/issueView(id=${issue.id})}" th:object="${comment}" method="post">
+            <div class="control-group row" sec:authorize="hasRole('ROLE_ADMIN')" >
+                <label class="control-label col-md-2" th:text="#{status}"></label>
+                <div class="dropdown">
+                    <select th:field="*{status}">
+                        <option th:each="status : ${allStatus}"
+                                th:value="${status}"
+                                th:text="#{${'status.' + status}}">
+                        </option>
+                    </select>
+                  </div>
+            </div>
+            <div class="control-group row">
+                <label class="control-label col-md-2" th:text="#{author}"></label>
+                <input type="text" th:field="*{author}" required="required" pattern=".{5,}" title="5 characters minimum"/>
+            </div>
+            <div class="control-group row">
+                <label class="control-label col-md-2" th:text="#{text}"></label>
+                <input type="text" th:field="*{text}" required="required" pattern=".{5,}" title="5 characters minimum"/>
+            </div>
+            <div class="control-group row">
+                <div class="controls">
+                    <button class="btn btn-info  col-md-5" type="submit" name="createComment" th:text="#{add}"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
